@@ -17,7 +17,6 @@ public class CityService {
 	private ICityRepository cityRepository;
 	
 	public Optional<City> getById(long id) {
-		
 		return cityRepository.findById(id);
 	}
 
@@ -32,8 +31,12 @@ public class CityService {
 	}
 
 	public City save(CreateCityDTO dto) {
-		City city =  new City(dto.getName(), dto.getWeather());
+		City city =  new City(dto.getName(), dto.getWeather(), convertToFahrenheit(dto.getWeather()));
 		return cityRepository.save(city);
+	}
+
+	public double convertToFahrenheit(double weather){
+		return (weather*1.8)+32;
 	}
 	
 
